@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { adminCreateUser } from '../../api/auth';
+
 import './user.css';
+import AdminHeader from '../AdminHeader';
 
 export default function AdminCreateUser({ onUserCreated }) {
   const [formData, setFormData] = useState({
@@ -87,6 +89,7 @@ export default function AdminCreateUser({ onUserCreated }) {
 
   return (
     <div className="admin-create-user">
+      <AdminHeader/>
       <h3>Créer un Nouvel Utilisateur</h3>
       
       <form onSubmit={handleSubmit} className="user-form">

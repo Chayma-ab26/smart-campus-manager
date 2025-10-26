@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { adminGetUsers, adminDeleteUser } from '../../api/auth';
+import AdminHeader from '../AdminHeader';
 import './user.css';
 
 export default function AdminUsersList({ refresh }) {
@@ -50,7 +51,9 @@ export default function AdminUsersList({ refresh }) {
   if (error) return <div className="error">{error}</div>;
 
   return (
+    
     <div className="admin-users-list">
+      <AdminHeader />
       <h3>Liste des Utilisateurs ({users.length})</h3>
       
       <div className="users-table-container">

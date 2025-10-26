@@ -1,4 +1,4 @@
- import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './api/Login';
 import Home from './home';
 import AdminDashboard from './admin/AdminDashboard';

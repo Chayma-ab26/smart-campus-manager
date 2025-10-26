@@ -22,7 +22,7 @@ export const getCurrentUser = () => {
 
 export const adminGetUsers = async () => {
   const token = localStorage.getItem('access_token');
-  const response = await axios.get(`${API_URL}admin/users/`, {
+  const response = await axios.get(`${API_URL}users/`, {
     headers: { Authorization: `Bearer ${token}` }
   });
   return response.data;
@@ -30,7 +30,7 @@ export const adminGetUsers = async () => {
 
 export const adminCreateUser = async (userData) => {
   const token = localStorage.getItem('access_token');
-  const response = await axios.post(`${API_URL}admin/users/`, userData, {
+  const response = await axios.post(`${API_URL}users/`, userData, {
     headers: { Authorization: `Bearer ${token}` }
   });
   return response.data;
@@ -38,7 +38,7 @@ export const adminCreateUser = async (userData) => {
 
 export const adminDeleteUser = async (userId) => {
   const token = localStorage.getItem('access_token');
-  const response = await axios.delete(`${API_URL}admin/users/${userId}/`, {
+  const response = await axios.delete(`${API_URL}users/${userId}/`, {
     headers: { Authorization: `Bearer ${token}` }
   });
   return response.data;
