@@ -1,17 +1,14 @@
-import React, { useState } from 'react';
-import { adminCreateUser } from '../../api/auth';
-
-import './user.css';
+import React, { useState, useEffect } from 'react';
+import { adminUpdateUser, adminGetUsers } from '../../api/auth';
 import AdminHeader from '../AdminHeader';
+import './user.css';
 
-export default function AdminCreateUser({ onUserCreated }) {
+export default function AdminEditUser({ userId, onUserUpdated, onCancel }) {
   const [formData, setFormData] = useState({
     nom: '',
     prenom: '',
     email: '',
-    password: '',
     role: 'ETUDIANT',
-    // Champs spécifiques aux profils
     departement: '',
     grade: '',
     niveau: '',
@@ -20,6 +17,38 @@ export default function AdminCreateUser({ onUserCreated }) {
   });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [initialLoading, setInitialLoading] = useState(true);
+
+  useEffect(() => {
+    loadUserData();
+  }, [userId]);
+
+  const loadUserData = async () => {
+    try {
+      setInitialLoading(true);
+      const users = await adminGetUsers();
+      const user = users.find(u => u.id === userId);
+
+      if (user) {
+        setFormData({
+          nom: user.nom || '',
+          prenom: user.prenom || '',
+          email: user.email || '',
+          role: user.role || 'ETUDIANT',
+          departement: user.departement || '',
+          grade: user.grade || '',
+          niveau: user.niveau || '',
+          filiere: user.filiere || '',
+          matricule: user.matricule || ''
+        });
+      }
+    } catch (error) {
+      console.error('Erreur chargement utilisateur:', error);
+      setMessage('❌ Erreur lors du chargement des données utilisateur');
+    } finally {
+      setInitialLoading(false);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,7 +69,6 @@ export default function AdminCreateUser({ onUserCreated }) {
         nom: formData.nom,
         prenom: formData.prenom,
         email: formData.email,
-        password: formData.password,
         role: formData.role
       };
 
@@ -54,41 +82,36 @@ export default function AdminCreateUser({ onUserCreated }) {
         userData.matricule = formData.matricule;
       }
 
-      await adminCreateUser(userData);
-      setMessage('✅ Utilisateur créé avec succès!');
-      
-      // Réinitialiser le formulaire
-      setFormData({
-        nom: '',
-        prenom: '',
-        email: '',
-        password: '',
-        role: 'ETUDIANT',
-        departement: '',
-        grade: '',
-        niveau: '',
-        filiere: '',
-        matricule: ''
-      });
+      await adminUpdateUser(userId, userData);
+      setMessage('✅ Utilisateur modifié avec succès!');
 
       // Notifier le parent
-      if (onUserCreated) {
-        onUserCreated();
+      if (onUserUpdated) {
+        onUserUpdated();
       }
 
     } catch (error) {
-      console.error('Erreur création utilisateur:', error);
-      setMessage('❌ Erreur lors de la création: ' + (error.response?.data?.detail || 'Erreur inconnue'));
+      console.error('Erreur modification utilisateur:', error);
+      setMessage('❌ Erreur lors de la modification: ' + (error.response?.data?.detail || 'Erreur inconnue'));
     } finally {
       setLoading(false);
     }
   };
 
+  if (initialLoading) {
+    return (
+      <div className="admin-edit-user">
+        <AdminHeader />
+        <div className="loading">Chargement des données utilisateur...</div>
+      </div>
+    );
+  }
+
   return (
-    <div className="admin-create-user">
-      <AdminHeader/>
-      <h3>Créer un Nouvel Utilisateur</h3>
-      
+    <div className="admin-edit-user">
+      <AdminHeader />
+      <h3>Modifier l'Utilisateur</h3>
+
       <form onSubmit={handleSubmit} className="user-form">
         {/* Informations de base */}
         <div className="form-group">
@@ -121,19 +144,6 @@ export default function AdminCreateUser({ onUserCreated }) {
             onChange={handleChange}
             required
             autoComplete="username"
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Mot de passe *</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            minLength="6"
-            autoComplete="new-password"
           />
         </div>
 
@@ -208,9 +218,14 @@ export default function AdminCreateUser({ onUserCreated }) {
           </div>
         )}
 
-        <button type="submit" disabled={loading} className="submit-btn">
-          {loading ? 'Création...' : 'Créer Utilisateur'}
-        </button>
+        <div className="form-actions">
+          <button type="submit" disabled={loading} className="submit-btn">
+            {loading ? 'Modification...' : 'Modifier Utilisateur'}
+          </button>
+          <button type="button" onClick={onCancel} className="cancel-btn">
+            Annuler
+          </button>
+        </div>
 
         {message && (
           <div className={`message ${message.includes('✅') ? 'success' : 'error'}`}>

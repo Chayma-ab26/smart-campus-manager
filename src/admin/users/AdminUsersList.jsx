@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { adminGetUsers, adminDeleteUser } from '../../api/auth';
 import AdminHeader from '../AdminHeader';
+import AdminEditUser from './AdminEditUser';
 import './user.css';
 
 export default function AdminUsersList({ refresh }) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [editingUserId, setEditingUserId] = useState(null);
 
   const loadUsers = async () => {
     try {
@@ -38,6 +40,19 @@ export default function AdminUsersList({ refresh }) {
     }
   };
 
+  const handleEditUser = (userId) => {
+    setEditingUserId(userId);
+  };
+
+  const handleUserUpdated = () => {
+    setEditingUserId(null);
+    loadUsers(); // Recharger la liste après modification
+  };
+
+  const handleCancelEdit = () => {
+    setEditingUserId(null);
+  };
+
   const getRoleBadge = (role) => {
     const roleColors = {
       ADMINISTRATEUR: 'badge-admin',
@@ -47,15 +62,25 @@ export default function AdminUsersList({ refresh }) {
     return <span className={`role-badge ${roleColors[role]}`}>{role}</span>;
   };
 
+  if (editingUserId) {
+    return (
+      <AdminEditUser
+        userId={editingUserId}
+        onUserUpdated={handleUserUpdated}
+        onCancel={handleCancelEdit}
+      />
+    );
+  }
+
   if (loading) return <div className="loading">Chargement des utilisateurs...</div>;
   if (error) return <div className="error">{error}</div>;
 
   return (
-    
+
     <div className="admin-users-list">
       <AdminHeader />
       <h3>Liste des Utilisateurs ({users.length})</h3>
-      
+
       <div className="users-table-container">
         <table className="users-table">
           <thead>
@@ -76,20 +101,27 @@ export default function AdminUsersList({ refresh }) {
                 <td>{user.email}</td>
                 <td>{getRoleBadge(user.role)}</td>
                 <td>
-                  {user.role === 'ENSEIGNANT' && user.enseignant_profile && (
+                  {user.role === 'ENSEIGNANT' && user.departement && (
                     <div className="profile-info">
-                      <small>Dépt: {user.enseignant_profile.departement}</small>
-                      <small>Grade: {user.enseignant_profile.grade}</small>
+                      <small>Dépt: {user.departement}</small>
+                      <small>Grade: {user.grade}</small>
                     </div>
                   )}
-                  {user.role === 'ETUDIANT' && user.etudiant_profile && (
+                  {user.role === 'ETUDIANT' && user.niveau && (
                     <div className="profile-info">
-                      <small>Niv: {user.etudiant_profile.niveau}</small>
-                      <small>Fil: {user.etudiant_profile.filiere}</small>
+                      <small>Niv: {user.niveau}</small>
+                      <small>Fil: {user.filiere}</small>
                     </div>
                   )}
                 </td>
                 <td>
+                  <button
+                    className="btn-edit"
+                    onClick={() => handleEditUser(user.id)}
+                    title="Modifier"
+                  >
+                    ✏️
+                  </button>
                   <button
                     className="btn-delete"
                     onClick={() => handleDeleteUser(user.id, user.nom)}
@@ -102,7 +134,7 @@ export default function AdminUsersList({ refresh }) {
             ))}
           </tbody>
         </table>
-        
+
         {users.length === 0 && (
           <div className="no-users">
             Aucun utilisateur trouvé
