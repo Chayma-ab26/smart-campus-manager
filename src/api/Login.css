@@ -1,0 +1,143 @@
+/* Page complète avec fond */
+.login-page {
+  background: radial-gradient(circle at top left, #0a1a2f, #0e223d, #091625);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+  overflow: hidden;
+}
+
+/* Carte centrale */
+.login-container {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(15px);
+  padding: 50px 35px;
+  border-radius: 25px;
+  width: 380px;
+  max-width: 90%;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.25);
+  color: #fff;
+  position: relative;
+  transition: transform 0.3s;
+}
+.login-container:hover {
+  transform: translateY(-5px);
+}
+
+/* Bouton retour */
+.back-home {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: #00bfff;
+  text-decoration: none;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.3s, transform 0.2s;
+}
+.back-home:hover {
+  color: #4fc3f7;
+  transform: translateX(-3px);
+}
+
+/* Titres */
+h2 {
+  margin-top: 20px;
+  font-size: 30px;
+  font-weight: 700;
+}
+.subtitle {
+  color: #b0c4de;
+  margin-bottom: 30px;
+}
+
+/* Formulaire */
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.input-group .icon {
+  position: absolute;
+  left: 15px;
+  color: #00bfff;
+}
+.input-group input {
+  width: 100%;
+  padding: 14px 20px 14px 45px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  font-size: 16px;
+  transition: 0.3s;
+}
+.input-group input::placeholder {
+  color: #ccc;
+}
+.input-group input:focus {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px #00bfff;
+  transform: scale(1.02);
+}
+
+/* Bouton connexion */
+.login-btn {
+  background: linear-gradient(90deg, #00bfff, #007bff);
+  background-size: 200% 200%;
+  color: white;
+  width: 100%;
+  padding: 14px;
+  border-radius: 25px;
+  border: none;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: 0.4s;
+}
+.login-btn:hover {
+  background-position: right center;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #00bfff;
+}
+
+/* Pied de page */
+.footer-text {
+  margin-top: 25px;
+  font-size: 14px;
+  color: #ccc;
+}
+.footer-text a {
+  color: #00bfff;
+  text-decoration: none;
+  font-weight: 500;
+}
+.footer-text a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .login-container {
+    padding: 40px 25px;
+    width: 95%;
+  }
+  h2 {
+    font-size: 26px;
+  }
+  .login-btn {
+    font-size: 15px;
+  }
+}

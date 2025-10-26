@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { logout } from '../api/auth'; // on remonte d’un dossier pour accéder à auth.js
+import { logout } from '../api/auth';
 
 export default function AdminHeader() {
     const navigate = useNavigate();
@@ -13,15 +13,13 @@ export default function AdminHeader() {
     return (
         <header style={styles.header}>
             <div style={styles.logo}>🎓 Admin Dashboard</div>
-
             <nav style={styles.nav}>
-                <Link to="/admin/users" style={styles.link}>👥 Utilisateurs</Link>
-                <Link to="/admin/events" style={styles.link}>🎉 Événements</Link>
-                <Link to="/admin/salles" style={styles.link}>🏛️ Salles</Link>
-                <Link to="/admin/reservations" style={styles.link}>📅 Réservations</Link>
+                <Link to="/admin/users" style={styles.link}>Utilisateurs</Link>
+                <Link to="/admin/events" style={styles.link}>Événements</Link>
+                <Link to="/admin/salles" style={styles.link}>Salles</Link>
+                <Link to="/admin/reservations" style={styles.link}>Réservations</Link>
             </nav>
-
-            <button onClick={handleLogout} style={styles.logoutBtn}>Se déconnecter</button>
+            <button onClick={handleLogout} style={styles.logoutBtn}>Déconnexion</button>
         </header>
     );
 }
@@ -31,30 +29,39 @@ const styles = {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: '#1E293B',
-        color: 'white',
-        padding: '10px 20px',
-        borderBottom: '3px solid #0EA5E9',
+        padding: '15px 40px',
+        backgroundColor: '#0F172A',
+        color: '#F8FAFC',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+        position: 'sticky',
+        top: 0,
+        zIndex: 1000,
     },
     logo: {
-        fontSize: '20px',
+        fontSize: '24px',
         fontWeight: 'bold',
+        letterSpacing: '1px',
     },
     nav: {
         display: 'flex',
-        gap: '20px',
+        gap: '25px',
     },
     link: {
-        color: 'white',
+        color: '#F8FAFC',
         textDecoration: 'none',
         fontWeight: '500',
+        padding: '8px 15px',
+        borderRadius: '8px',
+        transition: '0.3s',
     },
     logoutBtn: {
         backgroundColor: '#EF4444',
         color: 'white',
         border: 'none',
-        padding: '8px 15px',
-        borderRadius: '5px',
+        padding: '8px 20px',
+        borderRadius: '10px',
         cursor: 'pointer',
+        fontWeight: '600',
+        transition: '0.3s',
     },
 };

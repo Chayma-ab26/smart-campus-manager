@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { login } from './auth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { FaArrowLeft, FaEnvelope, FaLock } from 'react-icons/fa';
+import './Login.css';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -24,25 +26,44 @@ export default function Login() {
     };
 
     return (
-        <div>
-            <h2>Connexion</h2>
-            <form onSubmit={handleSubmit}>
-                <input 
-                    type="email" 
-                    placeholder="Email" 
-                    value={email} 
-                    onChange={e => setEmail(e.target.value)} 
-                    required 
-                />
-                <input 
-                    type="password" 
-                    placeholder="Mot de passe" 
-                    value={motDePasse} 
-                    onChange={e => setMotDePasse(e.target.value)} 
-                    required 
-                />
-                <button type="submit">Se connecter</button>
-            </form>
+        <div className="login-page">
+            <div className="login-container">
+                {/* 🔙 Bouton retour */}
+                <Link to="/" className="back-home">
+                    <FaArrowLeft /> Retour à l'accueil
+                </Link>
+
+                <h2>Bienvenue </h2>
+                <p className="subtitle">Connectez-vous à votre espace SmartCampus</p>
+
+                <form onSubmit={handleSubmit} className="login-form">
+                    <div className="input-group">
+                        <FaEnvelope className="icon" />
+                        <input
+                            type="email"
+                            placeholder="Adresse e-mail"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            autoComplete="username"
+                        />
+                    </div>
+                    <div className="input-group">
+                        <FaLock className="icon" />
+                        <input
+                            type="password"
+                            placeholder="Mot de passe"
+                            value={motDePasse}
+                            onChange={(e) => setMotDePasse(e.target.value)}
+                            required
+                            autoComplete="current-password"
+                        />
+                    </div>
+                    <button type="submit" className="login-btn">Se connecter</button>
+                </form>
+
+               
+            </div>
         </div>
     );
 }
