@@ -37,6 +37,15 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
+    # Champs spécifiques pour les enseignants
+    departement = models.CharField(max_length=100, blank=True, null=True)
+    grade = models.CharField(max_length=100, blank=True, null=True)
+
+    # Champs spécifiques pour les étudiants
+    niveau = models.CharField(max_length=50, blank=True, null=True)
+    filiere = models.CharField(max_length=100, blank=True, null=True)
+    matricule = models.CharField(max_length=50, unique=True, blank=True, null=True)
+
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
@@ -46,25 +55,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return f"{self.nom} ({self.role})"
 
 
-# ---------- PROFIL ENSEIGNANT ----------
-class EnseignantProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='enseignant_profile')
-    departement = models.CharField(max_length=100)
-    grade = models.CharField(max_length=100, blank=True, null=True)
 
-    def __str__(self):
-        return f"{self.user.nom} - {self.departement}"
-
-
-# ---------- PROFIL ETUDIANT ----------
-class EtudiantProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='etudiant_profile')
-    niveau = models.CharField(max_length=50)
-    filiere = models.CharField(max_length=100)
-    matricule = models.CharField(max_length=50, unique=True)
-
-    def __str__(self):
-        return f"{self.user.nom} - {self.filiere} ({self.niveau})"
 
 # ---------- AUTRES MODÈLES ----------
 

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import authenticate
-from .models import User, Role, EnseignantProfile, EtudiantProfile
+from .models import User, Role
 
 
 # serializers.py
@@ -15,17 +15,7 @@ class LoginSerializer(serializers.Serializer):
         data['user'] = user
         return data
 
-# ---------- PROFILS ----------
-class EnseignantProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = EnseignantProfile
-        fields = ['departement', 'grade']
 
-
-class EtudiantProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = EtudiantProfile
-        fields = ['niveau', 'filiere', 'matricule']
 
 
 # ---------- UTILISATEUR ----------
@@ -37,39 +27,49 @@ class UserSerializer(serializers.ModelSerializer):
 
 class UserCreateSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
-    enseignant_profile = EnseignantProfileSerializer(required=False)
-    etudiant_profile = EtudiantProfileSerializer(required=False)
 
     class Meta:
         model = User
-        fields = ['id', 'nom', 'email', 'password', 'role', 'enseignant_profile', 'etudiant_profile']
+        fields = ['id', 'nom', 'prenom', 'email', 'password', 'role', 
+                 'departement', 'grade', 'niveau', 'filiere', 'matricule']
+
+    def validate(self, data):
+        role = data.get('role')
+        
+        # Validation pour les enseignants
+        if role == 'ENSEIGNANT':
+            if not data.get('departement'):
+                raise serializers.ValidationError({
+                    "departement": "Le département est obligatoire pour un enseignant"
+                })
+        
+        # Validation pour les étudiants
+        elif role == 'ETUDIANT':
+            required_fields = ['niveau', 'filiere', 'matricule']
+            for field in required_fields:
+                if not data.get(field):
+                    raise serializers.ValidationError({
+                        field: f"Le champ {field} est obligatoire pour un étudiant"
+                    })
+        
+        return data
 
     def create(self, validated_data):
         password = validated_data.pop('password')
-        role = validated_data.get('role')
-        enseignant_data = validated_data.pop('enseignant_profile', None)
-        etudiant_data = validated_data.pop('etudiant_profile', None)
-
-        user = User.objects.create(
-            email=validated_data['email'],
-            nom=validated_data['nom'],
-            role=role
-        )
+        user = User.objects.create(**validated_data)
         user.set_password(password)
         user.save()
-
-        if role == Role.ENSEIGNANT and enseignant_data:
-            EnseignantProfile.objects.create(user=user, **enseignant_data)
-        elif role == Role.ETUDIANT and etudiant_data:
-            EtudiantProfile.objects.create(user=user, **etudiant_data)
-
         return user
 
 
 class UserDetailSerializer(serializers.ModelSerializer):
-    enseignant_profile = EnseignantProfileSerializer(read_only=True)
-    etudiant_profile = EtudiantProfileSerializer(read_only=True)
-
     class Meta:
         model = User
-        fields = ['id', 'nom', 'email', 'role', 'enseignant_profile', 'etudiant_profile']
+        fields = ['id', 'nom', 'prenom', 'email', 'role', 'departement', 'grade', 'niveau', 'filiere', 'matricule']
+    
+
+    def update(self, instance, validated_data):
+        # Ne pas permettre la modification du mot de passe via cette vue
+        if 'password' in validated_data:
+            validated_data.pop('password')
+        return super().update(instance, validated_data)
