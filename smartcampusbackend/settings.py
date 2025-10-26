@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
+
     'campus',
 ]
 
@@ -72,6 +74,12 @@ TEMPLATES = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React dev server
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
 
 # Optionnel : autoriser toutes les origines en dev (à désactiver en prod)
 # CORS_ALLOW_ALL_ORIGINS = True
@@ -134,3 +142,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'campus.User'
+AUTHENTICATION_BACKENDS = ['campus.backends.EmailBackend']
+

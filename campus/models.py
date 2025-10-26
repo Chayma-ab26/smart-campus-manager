@@ -1,20 +1,72 @@
 from django.db import models
-
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 
+# ---------- RÔLES ----------
 class Role(models.TextChoices):
     ADMINISTRATEUR = 'ADMINISTRATEUR', 'Administrateur'
     ENSEIGNANT = 'ENSEIGNANT', 'Enseignant'
     ETUDIANT = 'ETUDIANT', 'Étudiant'
 
-class User(models.Model):
+
+# ---------- GESTIONNAIRE UTILISATEUR ----------
+class UserManager(BaseUserManager):
+    def create_user(self, email, nom, role, password=None):
+        if not email:
+            raise ValueError("Email obligatoire")
+        email = self.normalize_email(email)
+        user = self.model(email=email, nom=nom, role=role)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, nom, password=None):
+        user = self.create_user(email, nom, Role.ADMINISTRATEUR, password)
+        user.is_superuser = True
+        user.is_staff = True
+        user.save(using=self._db)
+        return user
+
+
+# ---------- MODÈLE UTILISATEUR ----------
+class User(AbstractBaseUser, PermissionsMixin):
     nom = models.CharField(max_length=100)
+    prenom = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
-    motDePasse = models.CharField(max_length=128)
     role = models.CharField(max_length=20, choices=Role.choices)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    objects = UserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['nom']
 
     def __str__(self):
-        return f"{self.nom} ({self.get_role_display()})"
+        return f"{self.nom} ({self.role})"
+
+
+# ---------- PROFIL ENSEIGNANT ----------
+class EnseignantProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='enseignant_profile')
+    departement = models.CharField(max_length=100)
+    grade = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.user.nom} - {self.departement}"
+
+
+# ---------- PROFIL ETUDIANT ----------
+class EtudiantProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='etudiant_profile')
+    niveau = models.CharField(max_length=50)
+    filiere = models.CharField(max_length=100)
+    matricule = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return f"{self.user.nom} - {self.filiere} ({self.niveau})"
+
+# ---------- AUTRES MODÈLES ----------
 
 class Salle(models.Model):
     nom = models.CharField(max_length=100)
