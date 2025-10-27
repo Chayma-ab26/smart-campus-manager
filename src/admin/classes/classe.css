@@ -1,0 +1,172 @@
+/* classe.css */
+
+/* Container principal */
+.container {
+  max-width: 1200px;
+  margin: 40px auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Titre */
+.container h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #333333;
+  text-align: center;
+}
+
+.container h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #007bff;
+  text-align: center;
+}
+
+/* Boutons */
+button.btn {
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button.btn-primary {
+  background-color: #4a90e2;
+  color: #fff;
+}
+
+button.btn-primary:hover {
+  background-color: #357ab7;
+}
+
+button.btn-warning {
+  background-color: #f5a623;
+  color: #fff;
+}
+
+button.btn-warning:hover {
+  background-color: #d48806;
+}
+
+button.btn-danger {
+  background-color: #e94b35;
+  color: #fff;
+}
+
+button.btn-danger:hover {
+  background-color: #c43b27;
+}
+
+button.btn-link {
+  background: none;
+  border: none;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button.btn-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 20px;
+  font-size: 14px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+table th,
+table td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+table thead {
+  background-color: #f8f9fa;
+}
+
+table thead th {
+  color: #495057;
+  font-weight: 600;
+  border-bottom: 2px solid #dee2e6;
+}
+
+table tbody tr {
+  border-bottom: 1px solid #e9ecef;
+  transition: background-color 0.3s;
+}
+
+table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+table tbody td {
+  color: #495057;
+}
+
+/* Students section */
+.students-section {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  table thead {
+    display: none;
+  }
+
+  table tbody td {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  table tbody td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: inline-block;
+    width: 120px;
+    color: #495057;
+  }
+
+  table tbody tr {
+    margin-bottom: 15px;
+    display: block;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: white;
+  }
+
+  .students-section {
+    padding: 15px;
+  }
+}

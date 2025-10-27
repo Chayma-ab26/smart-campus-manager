@@ -17,7 +17,7 @@ export default function AdminHeader() {
                 <Link to="/admin/users" style={styles.link}>Utilisateurs</Link>
                 <Link to="/admin/events" style={styles.link}>Événements</Link>
                 <Link to="/admin/salles" style={styles.link}>Salles</Link>
-                <Link to="/admin/reservations" style={styles.link}>Réservations</Link>
+                <Link to="/admin/classes" style={styles.link}>Classes</Link>
             </nav>
             <button onClick={handleLogout} style={styles.logoutBtn}>Déconnexion</button>
         </header>

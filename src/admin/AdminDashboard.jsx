@@ -50,7 +50,7 @@ export default function AdminDashboard() {
                     { title: 'Utilisateurs', desc: 'Gérer tous les utilisateurs', path: '/admin/users', color: '#0EA5E9' },
                     { title: 'Événements', desc: 'Créer, modifier, supprimer', path: '/admin/events', color: '#22C55E' },
                     { title: 'Salles', desc: 'Gérer les salles disponibles', path: '/admin/salles', color: '#F59E0B' },
-                    { title: 'Réservations', desc: 'Voir et gérer toutes les réservations', path: '/admin/reservations', color: '#EF4444' },
+                    { title: 'Classes', desc: 'Voir et gérer tous les classes', path: '/admin/classes', color: '#EF4444' },
                 ].map((card) => (
                     <div
                         key={card.title}

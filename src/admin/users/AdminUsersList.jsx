@@ -95,43 +95,43 @@ export default function AdminUsersList({ refresh }) {
     const { value: formValues } = await Swal.fire({
       title: '<div style="display: flex; align-items: center; gap: 10px; color: #28a745;"><i class="fas fa-user-plus" style="font-size: 24px;"></i>Créer un Nouvel Utilisateur</div>',
       html: `
-        <div style="text-align: left; max-width: 500px; margin: 0 auto;">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+        <div style="text-align: left; max-width: 800px; margin: 0 auto;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">
             <div style="display: flex; flex-direction: column;">
-              <label style="font-weight: 600; color: #333; margin-bottom: 5px; font-size: 14px;">Nom *</label>
-              <input id="swal-nom" class="swal2-input" placeholder="Entrez le nom" required
-                     style="padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; transition: border-color 0.3s ease;">
+              <label style="font-weight: 600; color: #333; margin-bottom: 8px; font-size: 15px;">Nom *</label>
+              <input id="swal-nom" class="swal2-input" placeholder="Entrez le nom complet" required
+                     style="padding: 14px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 15px; transition: border-color 0.3s ease;">
             </div>
             <div style="display: flex; flex-direction: column;">
-              <label style="font-weight: 600; color: #333; margin-bottom: 5px; font-size: 14px;">Prénom</label>
+              <label style="font-weight: 600; color: #333; margin-bottom: 8px; font-size: 15px;">Prénom</label>
               <input id="swal-prenom" class="swal2-input" placeholder="Entrez le prénom"
-                     style="padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; transition: border-color 0.3s ease;">
+                     style="padding: 14px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 15px; transition: border-color 0.3s ease;">
             </div>
           </div>
 
-          <div style="display: flex; flex-direction: column; margin-bottom: 20px;">
-            <label style="font-weight: 600; color: #333; margin-bottom: 5px; font-size: 14px;">Email *</label>
-            <input id="swal-email" class="swal2-input" placeholder="exemple@email.com" type="email" required
-                   style="padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; transition: border-color 0.3s ease;">
+          <div style="display: flex; flex-direction: column; margin-bottom: 25px;">
+            <label style="font-weight: 600; color: #333; margin-bottom: 8px; font-size: 15px;">Email *</label>
+            <input id="swal-email" class="swal2-input" placeholder="exemple@universite.edu" type="email" required
+                   style="padding: 14px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 15px; transition: border-color 0.3s ease;">
           </div>
 
-          <div style="display: flex; flex-direction: column; margin-bottom: 20px;">
-            <label style="font-weight: 600; color: #333; margin-bottom: 5px; font-size: 14px;">Mot de passe *</label>
-            <input id="swal-password" class="swal2-input" placeholder="Mot de passe sécurisé" type="password" required
-                   style="padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; transition: border-color 0.3s ease;">
+          <div style="display: flex; flex-direction: column; margin-bottom: 25px;">
+            <label style="font-weight: 600; color: #333; margin-bottom: 8px; font-size: 15px;">Mot de passe *</label>
+            <input id="swal-password" class="swal2-input" placeholder="Minimum 6 caractères" type="password" required
+                   style="padding: 14px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 15px; transition: border-color 0.3s ease;">
           </div>
 
-          <div style="display: flex; flex-direction: column; margin-bottom: 20px;">
-            <label style="font-weight: 600; color: #333; margin-bottom: 5px; font-size: 14px;">Rôle</label>
+          <div style="display: flex; flex-direction: column; margin-bottom: 25px;">
+            <label style="font-weight: 600; color: #333; margin-bottom: 8px; font-size: 15px;">Rôle</label>
             <select id="swal-role" class="swal2-input"
-                    style="padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; background-color: white; transition: border-color 0.3s ease;">
+                    style="padding: 14px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 15px; background-color: white; transition: border-color 0.3s ease;">
               <option value="ETUDIANT">🎓 Étudiant</option>
               <option value="ENSEIGNANT">👨‍🏫 Enseignant</option>
               <option value="ADMINISTRATEUR">⚙️ Administrateur</option>
             </select>
           </div>
 
-          <div id="profile-fields" style="margin-top: 20px; padding: 15px; background-color: #f8f9fa; border-radius: 8px; border: 1px solid #dee2e6;"></div>
+          <div id="profile-fields" style="margin-top: 25px; padding: 20px; background-color: #f8f9fa; border-radius: 10px; border: 1px solid #dee2e6;"></div>
         </div>
       `,
       focusConfirm: false,
@@ -256,37 +256,37 @@ export default function AdminUsersList({ refresh }) {
     const { value: formValues } = await Swal.fire({
       title: '<div style="display: flex; align-items: center; gap: 10px; color: #ffc107;"><i class="fas fa-user-edit" style="font-size: 24px;"></i>Modifier l\'Utilisateur</div>',
       html: `
-        <div style="text-align: left; max-width: 500px; margin: 0 auto;">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+        <div style="text-align: left; max-width: 800px; margin: 0 auto;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">
             <div style="display: flex; flex-direction: column;">
-              <label style="font-weight: 600; color: #333; margin-bottom: 5px; font-size: 14px;">Nom *</label>
-              <input id="swal-nom" class="swal2-input" placeholder="Entrez le nom" value="${user.nom || ''}" required
-                     style="padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; transition: border-color 0.3s ease;">
+              <label style="font-weight: 600; color: #333; margin-bottom: 8px; font-size: 15px;">Nom *</label>
+              <input id="swal-nom" class="swal2-input" placeholder="Entrez le nom complet" value="${user.nom || ''}" required
+                     style="padding: 14px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 15px; transition: border-color 0.3s ease;">
             </div>
             <div style="display: flex; flex-direction: column;">
-              <label style="font-weight: 600; color: #333; margin-bottom: 5px; font-size: 14px;">Prénom</label>
+              <label style="font-weight: 600; color: #333; margin-bottom: 8px; font-size: 15px;">Prénom</label>
               <input id="swal-prenom" class="swal2-input" placeholder="Entrez le prénom" value="${user.prenom || ''}"
-                     style="padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; transition: border-color 0.3s ease;">
+                     style="padding: 14px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 15px; transition: border-color 0.3s ease;">
             </div>
           </div>
 
-          <div style="display: flex; flex-direction: column; margin-bottom: 20px;">
-            <label style="font-weight: 600; color: #333; margin-bottom: 5px; font-size: 14px;">Email *</label>
-            <input id="swal-email" class="swal2-input" placeholder="exemple@email.com" value="${user.email || ''}" type="email" required
-                   style="padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; transition: border-color 0.3s ease;">
+          <div style="display: flex; flex-direction: column; margin-bottom: 25px;">
+            <label style="font-weight: 600; color: #333; margin-bottom: 8px; font-size: 15px;">Email *</label>
+            <input id="swal-email" class="swal2-input" placeholder="exemple@universite.edu" value="${user.email || ''}" type="email" required
+                   style="padding: 14px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 15px; transition: border-color 0.3s ease;">
           </div>
 
-          <div style="display: flex; flex-direction: column; margin-bottom: 20px;">
-            <label style="font-weight: 600; color: #333; margin-bottom: 5px; font-size: 14px;">Rôle</label>
+          <div style="display: flex; flex-direction: column; margin-bottom: 25px;">
+            <label style="font-weight: 600; color: #333; margin-bottom: 8px; font-size: 15px;">Rôle</label>
             <select id="swal-role" class="swal2-input"
-                    style="padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; background-color: white; transition: border-color 0.3s ease;">
+                    style="padding: 14px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 15px; background-color: white; transition: border-color 0.3s ease;">
               <option value="ETUDIANT" ${user.role === 'ETUDIANT' ? 'selected' : ''}>🎓 Étudiant</option>
               <option value="ENSEIGNANT" ${user.role === 'ENSEIGNANT' ? 'selected' : ''}>👨‍🏫 Enseignant</option>
               <option value="ADMINISTRATEUR" ${user.role === 'ADMINISTRATEUR' ? 'selected' : ''}>⚙️ Administrateur</option>
             </select>
           </div>
 
-          <div id="profile-fields" style="margin-top: 20px; padding: 15px; background-color: #f8f9fa; border-radius: 8px; border: 1px solid #dee2e6;"></div>
+          <div id="profile-fields" style="margin-top: 25px; padding: 20px; background-color: #f8f9fa; border-radius: 10px; border: 1px solid #dee2e6;"></div>
         </div>
       `,
       focusConfirm: false,
