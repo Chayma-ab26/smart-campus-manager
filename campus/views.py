@@ -8,7 +8,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import LoginSerializer, UserCreateSerializer, UserDetailSerializer
 from .models import User
 from .permissions import IsAdminUserCustom
-
+from .models import Classe
+from .serializers import ClasseSerializer
 
 
 
@@ -59,3 +60,15 @@ class MeAPIView(generics.RetrieveAPIView):
 
     def get_object(self):
         return self.request.user
+
+
+
+# ---------- CLASSE ----------
+
+class ClasseListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Classe.objects.all()
+    serializer_class = ClasseSerializer
+
+class ClasseRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Classe.objects.all()
+    serializer_class = ClasseSerializer        

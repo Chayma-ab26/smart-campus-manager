@@ -108,3 +108,25 @@ class Evenement(models.Model):
 
     def __str__(self):
         return f"{self.titre} ({self.type}) le {self.date}"
+
+
+class Classe(models.Model):
+    nom = models.CharField(max_length=50)
+    niveau = models.CharField(max_length=50)
+    filiere = models.CharField(max_length=100)
+    capacite_max = models.PositiveIntegerField(default=20)  # nombre maximum d'étudiants
+    etudiants = models.ManyToManyField(
+        'User',
+        limit_choices_to={'role': Role.ETUDIANT},
+        related_name='classes',
+        blank=True
+    )
+
+    def __str__(self):
+        return f"{self.nom} ({self.niveau} - {self.filiere})"
+
+    def clean(self):
+        # Vérifier que le nombre d'étudiants ne dépasse pas la capacité maximale
+        if self.etudiants.count() > self.capacite_max:
+            raise ValidationError(f"Cette classe ne peut pas dépasser {self.capacite_max} étudiants.")
+        super().clean()
