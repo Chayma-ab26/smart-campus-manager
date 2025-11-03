@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AdminHeader from "../AdminHeader";
+import { adminUpdateUser } from "../../api/auth";
 import './classe.css';
-
 export default function ListClasses() {
   const [classes, setClasses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -127,6 +127,39 @@ export default function ListClasses() {
     fetchStudents(classe);
   };
 
+  // Retirer un étudiant de la classe (mettre niveau et filière à vide)
+  const handleRemoveStudentFromClass = async (studentId, studentName) => {
+    const result = await Swal.fire({
+      title: "Confirmer le retrait",
+      text: `Voulez-vous retirer "${studentName}" de cette classe ? L'étudiant sera retiré de la liste mais restera dans le système.`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Oui, retirer",
+      cancelButtonText: "Annuler",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        // Mettre niveau et filière à vide pour retirer de la classe
+        await adminUpdateUser(studentId, {
+          nom: students.find(s => s.id === studentId).nom,
+          prenom: students.find(s => s.id === studentId).prenom,
+          email: students.find(s => s.id === studentId).email,
+          role: 'ETUDIANT',
+          niveau: '',
+          filiere: '',
+          matricule: students.find(s => s.id === studentId).matricule
+        });
+        Swal.fire("Retiré ✅", "Étudiant retiré de la classe avec succès", "success");
+        // Recharger les étudiants de la classe
+        fetchStudents(selectedClass);
+      } catch (error) {
+        console.error(error);
+        Swal.fire("Erreur", "Impossible de retirer l'étudiant de la classe", "error");
+      }
+    }
+  };
+
   if (loading) return <p className="loading-text">Chargement des classes...</p>;
 
   return (
@@ -198,6 +231,7 @@ export default function ListClasses() {
                     <th>Prénom</th>
                     <th>Email</th>
                     <th>Matricule</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -208,6 +242,14 @@ export default function ListClasses() {
                       <td>{student.prenom}</td>
                       <td>{student.email}</td>
                       <td>{student.matricule}</td>
+                      <td>
+                        <button
+                          onClick={() => handleRemoveStudentFromClass(student.id, `${student.prenom} ${student.nom}`)}
+                          className="btn btn-danger btn-sm"
+                        >
+                          🗑️ Retirer
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

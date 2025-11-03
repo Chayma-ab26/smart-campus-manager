@@ -18,6 +18,8 @@ export default function AdminHeader() {
                 <Link to="/admin/events" style={styles.link}>Événements</Link>
                 <Link to="/admin/salles" style={styles.link}>Salles</Link>
                 <Link to="/admin/classes" style={styles.link}>Classes</Link>
+                <Link to="/admin/matieres" style={styles.link}>Matières</Link>
+
             </nav>
             <button onClick={handleLogout} style={styles.logoutBtn}>Déconnexion</button>
         </header>

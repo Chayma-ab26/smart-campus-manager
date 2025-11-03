@@ -42,6 +42,12 @@ export default function AdminDashboard() {
                     <h3>78</h3>
                     <p>Réservations</p>
                 </div>
+                <div style={{ ...styles.statCard, borderTop: '5px solid #f48fe0ff' }}>
+                    <h3>78</h3>
+                    <p>Matieres</p>
+                </div>
+
+
             </div>
 
             {/* Cartes interactives */}
@@ -51,6 +57,7 @@ export default function AdminDashboard() {
                     { title: 'Événements', desc: 'Créer, modifier, supprimer', path: '/admin/events', color: '#22C55E' },
                     { title: 'Salles', desc: 'Gérer les salles disponibles', path: '/admin/salles', color: '#F59E0B' },
                     { title: 'Classes', desc: 'Voir et gérer tous les classes', path: '/admin/classes', color: '#EF4444' },
+                    { title: 'Matières', desc: 'Voir et gérer toutes les matières', path: '/admin/matieres', color: '#8B5CF6' },
                 ].map((card) => (
                     <div
                         key={card.title}
