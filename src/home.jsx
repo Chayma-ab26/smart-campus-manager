@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import sc from "./assets/images/sc.jpg";
 import "./home.css";
+import './index.css';
 
 export default function Home() {
   return (

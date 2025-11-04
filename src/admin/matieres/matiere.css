@@ -1,233 +1,131 @@
-/* ==========================================
-   🌐 STYLE MODERNE "DASHBOARD 2025" - MATIERES
-   ========================================== */
-
+/* ===============================
+   🌐 Style Dashboard 2025
+   =============================== */
 body {
   font-family: "Inter", "Poppins", sans-serif;
-  background: linear-gradient(135deg, #e0f2ff, #f8fafc);
-  color: #1f2937;
   margin: 0;
-  padding: 0;
+  background: linear-gradient(135deg, #e0f2ff, #f8fafc);
 }
 
-/* ====== Conteneur principal ====== */
-.min-h-screen {
-  min-height: 100vh;
+/* ====== PAGE STRUCTURE ====== */
+.page-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding-bottom: 3rem;
-  background: radial-gradient(circle at top left, #eff6ff, #f9fafb);
+  min-height: 100vh;
 }
 
-/* ====== Card principale ====== */
-.max-w-6xl {
-  width: 95%;
-  max-width: 1200px;
-  padding: 3rem;
-  margin-top: 3rem;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 28px;
-  box-shadow: 0 14px 50px rgba(0, 0, 0, 0.1);
-  transition: all 0.4s ease;
-}
-
-.max-w-6xl:hover {
-  transform: translateY(-4px);
-}
-
-/* ====== Header full width ====== */
-.adminheader {
-  position: sticky;
-  top: 0;
+/* ✅ Header pleine largeur */
+.header-wrapper {
   width: 100%;
   background: #0f172a;
   color: white;
-  padding: 15px 30px;
+  padding: 15px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* ✅ Contenu centré */
+.content-wrapper {
   display: flex;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 50px 20px;
+}
+
+/* ====== CARD ====== */
+.page-card {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 1100px;
+  width: 100%;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* ====== HEADER ====== */
+.page-header {
+  display: flex;
   justify-content: space-between;
-  z-index: 9999;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-/* Reste de ton CSS de dashboard/table */
-.min-h-screen {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  padding-bottom: 3rem;
-  background: radial-gradient(circle at top left, #eff6ff, #f9fafb);
+  margin-bottom: 30px;
 }
 
-.max-w-6xl {
-  width: 95%;
-  max-width: 1200px;
-  padding: 3rem;
-  margin-top: 3rem;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 28px;
-  box-shadow: 0 14px 50px rgba(0, 0, 0, 0.1);
-}
-
-/* Liens du header */
-.adminheader nav a {
-  color: #f1f5f9;
-  text-decoration: none;
-  margin: 0 15px;
-  font-weight: 500;
-  transition: color 0.3s;
-}
-
-.adminheader nav a:hover {
-  color: #3b82f6;
-}
-
-/* Le reste de ton CSS de dashboard/table */
-
-/* ====== Title ====== */
-h1 {
+.page-header h1 {
   font-size: 2rem;
   font-weight: 800;
   background: linear-gradient(90deg, #2563eb, #9333ea);
   -webkit-background-clip: text;
   color: transparent;
-  letter-spacing: -0.5px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
 
-/* ====== Boutons ====== */
-button.bg-blue-600 {
+/* ====== BUTTONS ====== */
+.btn-add {
   background: linear-gradient(90deg, #2563eb, #3b82f6);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
   font-weight: 600;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-  border: none;
-  transition: all 0.3s ease;
-  border-radius: 12px;
-  padding: 0.6rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
-button.bg-blue-600:hover {
+.btn-add:hover {
   background: linear-gradient(90deg, #1d4ed8, #2563eb);
-  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
   transform: translateY(-2px);
 }
 
-button.bg-yellow-400,
-button.bg-red-500 {
-  transition: all 0.25s ease;
-  border: none;
-  font-size: 1rem;
-  border-radius: 12px;
-  padding: 8px 14px;
+/* ====== TABLE ====== */
+.table-container {
+  overflow-x: auto;
 }
 
-button.bg-yellow-400 {
-  background: linear-gradient(90deg, #fde68a, #facc15);
-  color: #92400e;
-}
-
-button.bg-yellow-400:hover {
-  background: linear-gradient(90deg, #fbbf24, #f59e0b);
-  transform: translateY(-2px);
-}
-
-button.bg-red-500 {
-  background: linear-gradient(90deg, #f87171, #ef4444);
-  color: #fff;
-}
-
-button.bg-red-500:hover {
-  background: linear-gradient(90deg, #dc2626, #b91c1c);
-  transform: translateY(-2px);
-}
-
-/* ====== Tableau ====== */
 table {
   width: 100%;
   border-collapse: collapse;
-  border-radius: 16px;
-  overflow: hidden;
-  animation: fadeIn 0.6s ease;
 }
 
 thead {
-  background: linear-gradient(90deg, #eff6ff, #dbeafe);
+  background: #e0ecff;
   color: #1e3a8a;
   text-transform: uppercase;
-  font-size: 0.85rem;
-  letter-spacing: 0.5px;
 }
 
 th, td {
-  padding: 16px 20px;
-}
-
-tbody tr {
-  transition: background 0.25s ease, transform 0.15s ease;
-  border-radius: 12px;
+  padding: 14px 20px;
+  text-align: left;
 }
 
 tbody tr:hover {
   background: #f9fafb;
-  transform: scale(1.01);
 }
 
-/* ====== SweetAlert Custom Style ====== */
-.swal2-popup {
-  border-radius: 18px !important;
-  font-family: "Inter", sans-serif;
-  background: rgba(255, 255, 255, 0.85) !important;
-  backdrop-filter: blur(15px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+/* ====== ACTION BUTTONS ====== */
+.btn-edit {
+  background: #facc15;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  margin-right: 8px;
+  cursor: pointer;
 }
 
-.swal2-title {
-  font-weight: 700 !important;
-  color: #1d4ed8 !important;
+.btn-delete {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-.swal2-confirm {
-  background: linear-gradient(90deg, #2563eb, #3b82f6) !important;
-  border-radius: 10px !important;
-  box-shadow: 0 3px 10px rgba(37, 99, 235, 0.3);
-}
-
-.swal2-cancel {
-  background: #e5e7eb !important;
-  color: #374151 !important;
-  border-radius: 10px !important;
-}
-
-/* ====== Animation ====== */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ====== Responsive ====== */
-@media (max-width: 768px) {
-  table {
-    font-size: 0.85rem;
-  }
-  h1 {
-    font-size: 1.5rem;
-  }
-  .flex {
-    flex-direction: column;
-    gap: 10px;
-  }
+/* ====== EMPTY ====== */
+.empty {
+  text-align: center;
+  padding: 25px;
+  color: #6b7280;
+  font-style: italic;
 }

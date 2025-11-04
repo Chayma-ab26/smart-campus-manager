@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AdminHeader from "../AdminHeader";
-import "./matiere.css";
 
 const API_URL = "http://localhost:8000/api/matieres/";
 const API_ENSEIGNANTS = "http://localhost:8000/api/enseignants/";
@@ -46,7 +45,6 @@ export default function MatierePage() {
     }
   };
 
-  // Ajouter matière
   const handleAdd = async () => {
     const { value: formValues } = await Swal.fire({
       title: "➕ Nouvelle matière",
@@ -85,7 +83,6 @@ export default function MatierePage() {
     }
   };
 
-  // Modifier matière
   const handleEdit = async (matiere) => {
     const { value: formValues } = await Swal.fire({
       title: "✏️ Modifier matière",
@@ -124,7 +121,6 @@ export default function MatierePage() {
     }
   };
 
-  // Supprimer matière
   const handleDelete = async (id) => {
     Swal.fire({
       title: "Supprimer cette matière ?",
@@ -133,7 +129,7 @@ export default function MatierePage() {
       showCancelButton: true,
       confirmButtonText: "Oui, supprimer",
       cancelButtonText: "Annuler",
-      confirmButtonColor: "#e11d48",
+      confirmButtonColor: "#ef4444",
       cancelButtonColor: "#6b7280",
     }).then(async (result) => {
       if (result.isConfirmed) {
@@ -149,72 +145,74 @@ export default function MatierePage() {
   };
 
   return (
-  <div className="min-h-screen bg-gradient-to-br from-gray-100 via-white to-gray-200">
-    {/* Header full width */}
-    <AdminHeader className="w-full sticky top-0 z-50" />
-
-    {/* Conteneur central */}
-    <div className="max-w-6xl mx-auto p-8 mt-8 bg-white shadow-2xl rounded-2xl border border-gray-100">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-extrabold text-gray-800">📚 Gestion des Matières</h1>
-        <button
-          onClick={handleAdd}
-          className="bg-blue-600 text-white px-5 py-2 rounded-xl hover:bg-blue-700 transition"
-        >
-          ➕ Ajouter matière
-        </button>
+    <div className="min-h-screen bg-gradient-to-tr from-blue-50 to-gray-50 flex flex-col">
+      {/* Header pleine largeur */}
+      <div className="w-full sticky top-0 z-50">
+        <AdminHeader className="bg-primary text-white shadow-lg w-full" />
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full border-collapse">
-          <thead className="bg-blue-50 border-b">
-            <tr>
-              <th className="px-6 py-3 text-left">#</th>
-              <th className="px-6 py-3 text-left">Nom</th>
-              <th className="px-6 py-3 text-left">Code</th>
-              <th className="px-6 py-3 text-center">Volume H</th>
-              <th className="px-6 py-3 text-left">Enseignant</th>
-              <th className="px-6 py-3 text-left">Classe</th>
-              <th className="px-6 py-3 text-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {matieres.length > 0 ? (
-              matieres.map((matiere, index) => (
-                <tr key={matiere.id} className="hover:bg-gray-50 border-b">
-                  <td className="px-6 py-4">{index + 1}</td>
-                  <td className="px-6 py-4">{matiere.nom}</td>
-                  <td className="px-6 py-4">{matiere.code}</td>
-                  <td className="px-6 py-4 text-center">{matiere.volume_horaire}</td>
-                  <td className="px-6 py-4">{matiere.enseignant_nom}</td>
-                  <td className="px-6 py-4">{matiere.classe_nom}</td>
-                  <td className="px-6 py-4 text-center space-x-3">
-                    <button
-                      onClick={() => handleEdit(matiere)}
-                      className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded-lg transition"
-                    >
-                      ✏️
-                    </button>
-                    <button
-                      onClick={() => handleDelete(matiere.id)}
-                      className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg transition"
-                    >
-                      🗑️
-                    </button>
-                  </td>
+      {/* Main Content */}
+      <div className="flex justify-center p-10">
+        <div className="card w-full max-w-6xl bg-base-100 shadow-xl rounded-2xl">
+          {/* Header Card */}
+          <div className="flex justify-between items-center p-6 border-b border-gray-200">
+            <h1 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+              📚 Gestion des Matières
+            </h1>
+            <button
+              onClick={handleAdd}
+              className="btn btn-primary btn-sm text-white shadow-md hover:shadow-lg transition"
+            >
+              ➕ Ajouter matière
+            </button>
+          </div>
+
+          {/* Table */}
+          <div className="overflow-x-auto p-6">
+            <table className="table table-zebra w-full">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nom</th>
+                  <th>Code</th>
+                  <th>Volume H</th>
+                  <th>Enseignant</th>
+                  <th>Classe</th>
+                  <th>Actions</th>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="7" className="text-center py-6 text-gray-500 italic">
-                  Aucune matière disponible.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+              </thead>
+              <tbody>
+                {matieres.length > 0 ? (
+                  matieres.map((matiere, index) => (
+                    <tr key={matiere.id}>
+                      <th>{index + 1}</th>
+                      <td>{matiere.nom}</td>
+                      <td>{matiere.code}</td>
+                      <td>{matiere.volume_horaire}</td>
+                      <td>{matiere.enseignant_nom}</td>
+                      <td>{matiere.classe_nom}</td>
+                      <td className="flex gap-2">
+                        <button onClick={() => handleEdit(matiere)} className="btn btn-warning btn-xs">
+                          ✏️
+                        </button>
+                        <button onClick={() => handleDelete(matiere.id)} className="btn btn-error btn-xs">
+                          🗑️
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="7" className="text-center italic text-gray-400">
+                      Aucune matière disponible.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
 }
